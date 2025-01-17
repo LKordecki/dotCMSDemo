@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton+SC&family=Bad+Script&family=Source+Sans+3:ital,wght@0,300;1,300&display=swap" rel="stylesheet');
+
+$body-font: "Source Sans 3", sans-serif;
+$article-title: "Bad Script", cursive;
+
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 600, "GRAD" 0, "opsz" 48;
+    font-size: 33pt;
+    text-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black, -1px 1px 2px black, 2px 2px 5px white;
+}
+
+.carousel {
+    margin: 10px auto;
+
+    .carousel-caption {
+        h3 {
+          font-family: $article-title;
+          font-size: 2.8rem;
+          font-weight: bold;
+          text-shadow: 
+            1px 1px 2px black, 
+            -1px -1px 2px black, 
+            1px -1px 2px black, 
+            -1px 1px 2px black, 
+            2px 2px 5px white; 
+        }
+      
+        p {
+          font-size: 1.8rem;
+          text-shadow: 
+            1px 1px 2px black, 
+            -1px -1px 2px black, 
+            1px -1px 2px black, 
+            -1px 1px 2px black,
+            2px 2px 5px white; 
+        }
+
+        a{
+            font-size: 1.2rem;
+            text-shadow: 
+            1px 1px 2px black, 
+            -1px -1px 2px black, 
+            1px -1px 2px black, 
+            -1px 1px 2px black,
+            2px 2px 5px white;  
+        }
+      }
+
+  .carousel-item {
+    img {
+      height: 300px;
+      object-fit: cover;
+      border-radius: 9px;
+    }
+  }
+}
+

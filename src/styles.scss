@@ -1,1 +1,86 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Anton+SC&family=Bad+Script&family=Source+Sans+3:ital,wght@0,300;1,300&display=swap" rel="stylesheet');
+
+$body-font: "Source Sans 3", sans-serif;
+$article-title: "Bad Script", cursive;
+
+body {
+  font-family: $body-font;
+  font-size: 16pt;
+  font-weight: 300;
+  background-color: #efefef;
+  color: #172c17;
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  font-family: $article-title;
+  font-weight: bold;
+  font-size: 2em;
+  margin: 5px;
+}
+
+h3 {
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+b,
+strong {
+  font-weight: bold;
+}
+
+.body-container {
+  display: block;
+  max-width: 1000px;
+  min-width: 300px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+
+  thead {
+    background-color: #008080;
+    color: #fff;
+
+    th {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+  }
+
+  tbody {
+    tr {
+      &.odd-row {
+        background-color: #fff; 
+      }
+
+      &.even-row {
+        background-color: #f0f0f0;
+      }
+
+      td {
+        padding: 10px;
+        border: 1px solid #ccc; 
+        text-align: left; 
+
+        span {
+          font-weight: normal;
+        }
+
+        strong {
+          font-weight: bold;
+        }
+
+        u {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

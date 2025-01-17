@@ -1,0 +1,274 @@
+<div class="blog-preview" *ngFor="let blog of blogs; let i = index">
+  <app-banner-list *ngIf="i % 3 === 0"></app-banner-list>
+  <div class="blog-item-container" (click)="toggleContent(i)">
+    <div class="blog-item-title">
+      <img
+        *ngIf="blog.image"
+        [src]="getImageUrl(blog.image)"
+        alt="{{ blog.pageTitle }}"
+      />
+      <div class="blog-title-sub">
+        <div>
+          <h2 *ngIf="blog.pageTitle && blog.pageTitle.trim() !== ''">
+            {{ blog.pageTitle }}
+          </h2>
+
+          <h2
+            *ngIf="
+              !(blog.pageTitle && blog.pageTitle.trim() !== '') &&
+              blog.title &&
+              blog.title.trim() !== ''
+            "
+          >
+            {{ blog.title }}
+          </h2>
+
+          <h2
+            *ngIf="
+              !(blog.pageTitle && blog.pageTitle.trim() !== '') &&
+              !(blog.title && blog.title.trim() !== '') &&
+              blog.ogTitle &&
+              blog.ogTitle.trim() !== ''
+            "
+          >
+            {{ blog.ogTitle }}
+          </h2>
+        </div>
+
+        <div>
+          <p class="publish-date">
+            Published on: {{ blog.publishDate | date : "longDate" }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="blog-item-content"
+      [id]="'item' + i"
+      [class.fade-in]="visibleContentIndex === i"
+      [class.hidden]="visibleContentIndex !== i"
+    >
+      <p class="meta-description">{{ blog.metaDescription }}</p>
+
+      <div class="blog-content">
+        <ng-container *ngFor="let content of blog.blogContent.content">
+          <div
+            *ngIf="content.type === 'paragraph'"
+            [style.textAlign]="content.attrs?.textAlign"
+          >
+            <ng-container *ngFor="let part of content.content">
+              <span *ngIf="!part.marks" [innerHTML]="part.text"></span>
+              <span *ngIf="part.marks">
+                <div *ngFor="let part of blog.blogContent.content">
+                  <p *ngIf="hasMark(part, 'bold')">
+                    <strong>{{ part.text }}</strong>
+                  </p>
+                  <p *ngIf="hasMark(part, 'underline')">
+                    <u>{{ part.text }}</u>
+                  </p>
+                  <p
+                    *ngIf="
+                      !hasMark(part, 'bold') && !hasMark(part, 'underline')
+                    "
+                  >
+                    {{ part.text }}
+                  </p>
+                </div>
+              </span>
+            </ng-container>
+          </div>
+
+          <ul *ngIf="content.type === 'bulletList'">
+            <li
+              *ngFor="let item of content.content"
+              [style.textAlign]="item.attrs?.textAlign"
+            >
+              <p *ngFor="let paragraph of item.content">
+                <ng-container *ngFor="let textPart of paragraph.content">
+                  <span *ngIf="hasMark(textPart, 'bold')"
+                    ><strong>{{ textPart.text }}</strong></span
+                  >
+                  <span *ngIf="hasMark(textPart, 'underline')"
+                    ><u>{{ textPart.text }}</u></span
+                  >
+                  <span
+                    *ngIf="
+                      !hasMark(textPart, 'bold') &&
+                      !hasMark(textPart, 'underline')
+                    "
+                    >{{ textPart.text }}</span
+                  >
+                </ng-container>
+              </p>
+            </li>
+          </ul>
+
+          <table *ngIf="content.type === 'table'" class="table">
+            <thead>
+              <tr *ngFor="let headerRow of content.content | slice : 0 : 1">
+                <th
+                  *ngFor="let header of headerRow.content"
+                  [attr.colspan]="header.attrs?.colspan"
+                  [attr.rowspan]="header.attrs?.rowspan"
+                  [style.textAlign]="header.content[0]?.attrs?.textAlign"
+                >
+                  <ng-container
+                    *ngFor="let textPart of header.content[0]?.content"
+                  >
+                    <span *ngIf="hasMark(textPart, 'bold')"
+                      ><strong>{{ textPart.text }}</strong></span
+                    >
+                    <span *ngIf="hasMark(textPart, 'underline')"
+                      ><u>{{ textPart.text }}</u></span
+                    >
+                    <span
+                      *ngIf="
+                        !hasMark(textPart, 'bold') &&
+                        !hasMark(textPart, 'underline')
+                      "
+                      >{{ textPart.text }}</span
+                    >
+                  </ng-container>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of content.content | slice : 1">
+                <td
+                  *ngFor="let cell of row.content"
+                  [attr.colspan]="cell.attrs?.colspan"
+                  [attr.rowspan]="cell.attrs?.rowspan"
+                  [style.textAlign]="cell.content[0]?.attrs?.textAlign"
+                >
+                  <ng-container *ngFor="let paragraph of cell.content">
+                    <ng-container *ngFor="let textPart of paragraph.content">
+                      <span *ngIf="hasMark(textPart, 'bold')"
+                        ><strong>{{ textPart.text }}</strong></span
+                      >
+                      <span *ngIf="hasMark(textPart, 'underline')"
+                        ><u>{{ textPart.text }}</u></span
+                      >
+                      <span
+                        *ngIf="
+                          !hasMark(textPart, 'bold') &&
+                          !hasMark(textPart, 'underline')
+                        "
+                        >{{ textPart.text }}</span
+                      >
+                    </ng-container>
+                  </ng-container>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div *ngIf="content.type === 'dotImage'" class="dot-image">
+            <img
+              [src]="getImageUrl(content.attrs.data.identifier)"
+              alt="{{ content.attrs?.data?.title || 'Image' }}"
+            />
+          </div>
+
+          <h3
+            *ngIf="content.type === 'heading'"
+            [style.textAlign]="content.attrs?.textAlign"
+          >
+            {{ content.content[0].text }}
+          </h3>
+
+          <div
+            *ngIf="
+              content.type === 'dotContent' &&
+              content.attrs?.data?.live === true
+            "
+            class="dot-content-container"
+          >
+            <div class="dot-content-flex">
+              <div
+                *ngIf="
+                  content.attrs?.data?.contentType !== 'Product' &&
+                  content.attrs?.data?.image
+                "
+                class="dot-content-image"
+              >
+                <img
+                  [src]="getImageUrl(content.attrs.data.image)"
+                  alt="{{ content.attrs?.data?.title || 'Image' }}"
+                />
+              </div>
+
+              <div
+                *ngIf="
+                  content.attrs?.data?.contentType === 'Product' &&
+                  content.attrs?.data?.identifier
+                "
+                class="dot-content-image"
+              >
+                <img
+                  [src]="getImageUrl(content.attrs.data.identifier)"
+                  alt="{{ content.attrs?.data?.title || 'Image' }}"
+                />
+              </div>
+
+              <div class="dot-content-info">
+                <div
+                  *ngIf="content.attrs?.data?.title"
+                  class="dot-content-title"
+                >
+                  <h3>{{ content.attrs.data.title }}</h3>
+                </div>
+
+                <div class="dot-content-type-wrapper">
+                  <div
+                    *ngIf="content.attrs?.data?.contentType !== 'Product'"
+                    class="dot-content-type"
+                  >
+                    <p>{{ content.attrs?.data?.shortDescription }}</p>
+                    <a href="#">Explore</a>
+                  </div>
+
+                  <div
+                    *ngIf="content.attrs?.data?.contentType === 'Product'"
+                    class="dot-content-type"
+                  >
+                    <div *ngIf="!content.attrs?.data?.salePrice">
+                      <p>
+                        <span class="retail-price">{{
+                          content.attrs.data.retailPrice
+                        }}</span>
+                      </p>
+                    </div>
+                    <div *ngIf="content.attrs?.data?.salePrice">
+                      <p>
+                        <span class="full-sale-price">{{
+                          content.attrs.data.retailPrice
+                        }}</span>
+                      </p>
+                    </div>
+                    <h3
+                      *ngIf="content.attrs?.data?.salePrice"
+                      class="sale-price"
+                    >
+                      {{ content.attrs.data.salePrice }}
+                    </h3>
+                  </div>
+                </div>
+
+                <div
+                  *ngIf="content.attrs?.data?.description"
+                  class="dot-content-description"
+                >
+                  <div [innerHTML]="content.attrs.data.description"></div>
+                </div>
+
+                <div *ngIf="content.attrs?.data?.contentType === 'Product'">
+                  <button class="mock-button">Procure</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,250 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton+SC&family=Bad+Script&family=Source+Sans+3:ital,wght@0,300;1,300&display=swap");
+
+$body-font: "Source Sans 3", sans-serif;
+$article-title: "Bad Script", cursive;
+
+.blog-item-container {
+  display: block;
+  border: 2px solid #686371;
+  border-radius: 6px;
+  box-shadow: 0 3px 9px #afafaf;
+  padding: 0 15px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  background-color: #fff;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.blog-item-title {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+
+  h2 {
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  img {
+    max-width: 400px;
+    max-height: 250px;
+    margin-left: -15px;
+    border-bottom-right-radius: 6px;
+
+    @media (max-width: 800px) {
+      max-width: 100%;
+      margin-left: unset;
+      border-radius: 6px;
+    }
+  }
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
+}
+
+.blog-title-sub {
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  width: 100%;
+  align-items: stretch;
+  padding-top: 30px;
+
+  > div:first-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+  }
+
+  .publish-date {
+    margin-top: auto;
+    align-self: flex-end;
+    padding-right: 10px;
+    position: relative;
+    text-align: right;
+  }
+}
+
+.blog-item-content {
+  opacity: 0;
+  transform: translateY(-20px);
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.8s ease, transform 0.8s ease, max-height 0.8s ease;
+
+  &.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: unset;
+  }
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    background-color: #008080;
+    color: #fff;
+
+    th {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+  }
+
+  tbody {
+    tr {
+      &.odd-row {
+        background-color: #fff;
+      }
+
+      &.even-row {
+        background-color: #f0f0f0;
+      }
+
+      td {
+        padding: 10px;
+        border: 1px solid #ccc;
+        text-align: left;
+
+        span {
+          font-weight: normal;
+        }
+
+        strong {
+          font-weight: bold;
+        }
+
+        u {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+.dot-content-container {
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.dot-content-flex {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.dot-content-image img {
+  max-width: 200px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.dot-content-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dot-content-title h3 {
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.dot-content-type h3 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.dot-content-type p,
+.dot-content-description p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  color: #444;
+}
+
+.dot-content-description {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .dot-content-flex {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dot-content-image img {
+    max-width: 100%;
+  }
+}
+
+.dot-content-type-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+
+  a {
+    font-family: $article-title;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
+.retail-price {
+  font-size: 1.6em;
+}
+
+.full-sale-price {
+  color: #7a070d;
+  text-decoration: line-through;
+  font-size: 1.4em;
+}
+
+.sale-price {
+  color: #008080;
+  font-size: 2em;
+}
+
+.mock-button {
+  background-color: #00ace0;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.3s;
+  max-width: 100px;
+}
+
+.mock-button:hover {
+  background-color: #008bb9;
+}
+
+.dot-image {
+  max-width: 550px;
+  margin: 20px auto;
+
+  img {
+    border-radius: 8px;
+    border: 1px solid #686371;
+    width: 100%;
+    max-width: 550px;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 3px 9px #afafaf;
+  }
+}
